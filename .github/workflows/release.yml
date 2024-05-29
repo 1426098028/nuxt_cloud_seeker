@@ -1,0 +1,46 @@
+name: project release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  VERSION: ${{ github.ref_name }}
+
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Create tar.gz
+        run: tar -czvf ./.output/build.tar.gz .output/*
+
+      - name: Create and upload release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./.output/build.tar.gz
+          tag_name: ${{ env.VERSION }}
+          name: Release ${{ env.VERSION }}
+          body: |
+            Release version ${{ env.VERSION }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
