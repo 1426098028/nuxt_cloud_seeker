@@ -12,8 +12,14 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,vue}\""
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "@nuxtjs/tailwindcss": "^6.12.0",
     "nuxt": "^3.11.2",
+    "qrcode": "^1.5.3",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   },
